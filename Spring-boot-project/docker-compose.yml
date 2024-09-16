@@ -1,0 +1,28 @@
+services:
+#  name of the service
+  db:
+    #  name of the container name
+    container_name: postgres
+    #  docker image
+    image: postgres
+#
+    environment:
+      POSTGRES_USER: tramab
+      POSTGRES_PASSWORD: 1234
+#      where to store data
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+#      - if instance running locally then it will be so to remove the ambeguity
+      - "5332:5432"
+    networks:
+      - db
+    restart: unless-stopped
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  db:
